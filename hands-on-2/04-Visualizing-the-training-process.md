@@ -77,4 +77,4 @@ those.
 
 ---
 
-Next: [Evaluating models](/hands-on-2/04-Visualizing-the-training-process.md).
+Next: [Evaluating models](/hands-on-2/05-Evaluating-models.md).
