@@ -2,13 +2,14 @@
 
 ## Hands-on 1: Implementing Faster R-CNN (almost) from scratch
 
-Consist of a Jupyter Notebook that will guide you to complete the implementation of a Faster R-CNN model for object detection.
+Consists of a Jupyter Notebook that will guide you to complete the implementation of a
+Faster R-CNN model for object detection.
 
 ### Instructions
 
 1. Clone the repository.
-2. Execute the `download_checkpoint.sh` script from the base directory
-   in order to download the pre-trained checkpoint:
+2. Execute the `download_checkpoint.sh` script from the base directory in order to
+   download the pre-trained checkpoint:
 
     ```bash
     cd object-detection-workshop
@@ -33,9 +34,10 @@ Consist of a Jupyter Notebook that will guide you to complete the implementation
 
 ## Hands on 2: using Luminoth for real world object detection
 
-Guided demo of [Luminoth](http://luminoth.ai/) toolkit, which will teach you the most important functionalities and how to train your own models.
+Guided demo of [Luminoth](http://luminoth.ai/) toolkit, which will teach you the most
+important functionalities and how to train your own models.
 
-[Access hands-on 2 here](/hands-on-2/README.md).
+[Access the Luminoth tutorial](https://luminoth.readthedocs.io/en/latest/tutorial/index.html).
 
 ---
 
