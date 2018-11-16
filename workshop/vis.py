@@ -47,6 +47,18 @@ def image_grid(count, columns=4, sizes=(5, 3)):
     return axes.ravel()
 
 
+def vis_anchors(anchors):
+    _, ax = plt.subplots(1, figsize=(10, 10))
+
+    ax.set_xlim([-500, 500])
+    ax.set_ylim([-500, 500])
+
+    for idx in range(anchors.shape[0]):
+        add_rectangle(ax, anchors[idx, :])
+
+    plt.show()
+
+
 def add_rectangle(ax, coords, **kwargs):
     x_min, y_min, x_max, y_max = coords
     ax.add_patch(
