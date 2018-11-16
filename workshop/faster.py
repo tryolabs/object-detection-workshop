@@ -26,6 +26,73 @@ def sort_anchors(anchors):
     return anchors[np.lexsort((areas, aspect_ratios)), :]
 
 
+def generate_anchors_reference(base_size, aspect_ratios, scales):
+    """Generate base set of anchors to be used as reference for all anchors.
+
+    Anchors vary only in width and height. Using the base_size and the
+    different ratios we can calculate the desired widths and heights.
+
+    Aspect ratios maintain the area of the anchors, while scales apply to the
+    length of it (and thus affect it squared).
+
+    Arguments:
+        base_size (int): Base size of the base anchor (square).
+        aspect_ratios: Ratios to use to generate different anchors. The ratio
+            is the value of height / width.
+        scales: Scaling ratios applied to length.
+
+    Returns:
+        anchors: Numpy array with shape (total_aspect_ratios * total_scales, 4)
+            with the corner points of the reference base anchors using the
+            convention (x_min, y_min, x_max, y_max).
+    """
+    scales_grid, aspect_ratios_grid = np.meshgrid(scales, aspect_ratios)
+    base_scales = scales_grid.reshape(-1)
+    base_aspect_ratios = aspect_ratios_grid.reshape(-1)
+
+    aspect_ratio_sqrts = np.sqrt(base_aspect_ratios)
+    heights = base_scales * aspect_ratio_sqrts * base_size
+    widths = base_scales / aspect_ratio_sqrts * base_size
+
+    # Center point has the same X, Y value.
+    center_xy = 0
+
+    # Create anchor reference.
+    anchors = np.column_stack([
+        center_xy - widths / 2,
+        center_xy - heights / 2,
+        center_xy + widths / 2,
+        center_xy + heights / 2,
+    ])
+
+    # references = generate_anchors_reference(
+    #     256,  # Base size.
+    #     [0.5, 1, 2],  # Aspect ratios.
+    #     [0.125, 0.25, 0.5, 1, 2],  # Scales.
+    # )
+
+    # print('Anchor references (real image size):')
+    # print()
+    # print(references)
+
+    # # We should have obtained 5 areas and 3 different aspect ratios in our
+    # # anchor references.
+    # widths = references[:, 2] - references[:, 0]
+    # heights = references[:, 3] - references[:, 1]
+
+    # aspect_ratios = np.round(heights / widths, 1)
+    # areas = widths * heights
+
+    # assert len(np.unique(areas)) == 5
+    # assert len(np.unique(aspect_ratios)) == 3
+
+    # print('Areas:', len(np.unique(areas)))
+    # print('Aspect ratios:', len(np.unique(aspect_ratios)))
+    
+    # We sort the anchors to the value expected by our pre-trained network.
+    return sort_anchors(anchors)
+
+
 def change_order(bboxes):
     first_min, second_min, first_max, second_max = tf.unstack(
         bboxes, axis=1
