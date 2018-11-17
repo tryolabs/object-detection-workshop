@@ -33,7 +33,7 @@ def pager(count, per_page, description='', **kwargs):
 
 
 def image_grid(count, columns=4, sizes=(5, 3)):
-    rows = math.ceil(count / columns)
+    rows = int(math.ceil(count / columns))
 
     width, height = sizes
 
@@ -163,8 +163,8 @@ def draw_label(draw, coords, label, prob, color, scale=1):
     # Attempt to get a native TTF font. If not, use the default bitmap font.
     global SYSTEM_FONT
     if SYSTEM_FONT:
-        label_font = SYSTEM_FONT.font_variant(size=round(16 * scale))
-        prob_font = SYSTEM_FONT.font_variant(size=round(12 * scale))
+        label_font = SYSTEM_FONT.font_variant(size=int(round(16 * scale)))
+        prob_font = SYSTEM_FONT.font_variant(size=int(round(12 * scale)))
     else:
         label_font = ImageFont.load_default()
         prob_font = ImageFont.load_default()
